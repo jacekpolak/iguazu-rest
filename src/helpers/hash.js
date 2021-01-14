@@ -14,24 +14,27 @@
  * permissions and limitations under the License.
  */
 
-import hash from 'object-hash';
-import { Map as iMap } from 'immutable';
-import { ID_TYPE_ERROR } from '../errors';
+//import hash from 'object-hash';
+import { Map as iMap } from "immutable";
+import { ID_TYPE_ERROR } from "../errors";
 
 function hashWithoutPrototypes(obj) {
-  return hash(obj, { respectType: false });
+  return obj;
+  //return hash(obj, { respectType: false });
 }
 
 export function valuesAsStrings(obj) {
-  return iMap(obj).map((v) => v.toString()).toJS();
+  return iMap(obj)
+    .map((v) => v.toString())
+    .toJS();
 }
 
 function getIdAsObject(id) {
   const idType = typeof id;
-  if (idType === 'object' && id !== null) {
+  if (idType === "object" && id !== null) {
     return id;
   }
-  if (idType === 'string' || idType === 'number') {
+  if (idType === "string" || idType === "number") {
     return { id };
   }
   throw new Error(ID_TYPE_ERROR);
